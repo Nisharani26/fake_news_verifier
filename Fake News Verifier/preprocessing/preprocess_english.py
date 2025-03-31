@@ -68,11 +68,13 @@ y_pred = model.predict(X_test_tfidf)
 accuracy = accuracy_score(y_test, y_pred) * 100  # Accuracy as percentage
 print(f"\n✅ Model Accuracy: {accuracy:.2f}%")
 
+
 # Save model and vectorizer
 with open(model_save_path, "wb") as model_file:
     pickle.dump(model, model_file)
 with open(vectorizer_save_path, "wb") as vectorizer_file:
     pickle.dump(vectorizer, vectorizer_file)
+
 
 print(f"\n✅ Model saved at: {model_save_path}")
 print(f"✅ TF-IDF Vectorizer saved at: {vectorizer_save_path}")
