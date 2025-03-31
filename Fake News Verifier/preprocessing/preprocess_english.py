@@ -10,8 +10,7 @@ from sklearn.metrics import accuracy_score
 # Define file paths
 data_file = r"C:\Users\vigne\Documents\fake_news_verifier\Fake News Verifier\unused\English_kaggle\English_News.csv"
 cleaned_file_path = r"C:\Users\vigne\Documents\fake_news_verifier\Fake News Verifier\unused\English_kaggle\Cleaned_News_dataset.csv"
-model_dir = r"C:\Users\vigne\Documents\fake_news_verifier\Fake News Verifier\model"
-os.makedirs(model_dir, exist_ok=True)
+model_dir = r"C:\Users\vigne\Documents\fake_news_verifier\Fake News Verifier\models"  # Assuming the folder already exists
 model_save_path = os.path.join(model_dir, "svm_fake_news_model.pkl")
 vectorizer_save_path = os.path.join(model_dir, "tfidf_vectorizer.pkl")
 
