@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Selection</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Header Section */
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .back {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Heading */
+        .heading {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+
+        /* Button Styles */
+        .button {
+            background: linear-gradient(to bottom, #222, #000);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            margin: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            width: 200px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+            box-shadow: 0px 5px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .button:hover {
+            background: linear-gradient(to bottom, #444, #111);
+            transform: scale(1.05);
+        }
+
+        /* Floating Gradient Circles */
+        .circle {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(white, gray);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .circle1 { top: 10%; left: 80%; width: 30px; height: 30px; }
+        .circle2 { top: 50%; left: 95%; }
+        .circle3 { top: 85%; left: 5%; width: 80px; height: 80px; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">VERIFIER</div>
+    <a href="index.html" class="back">BACK</a>  <!-- Back button now links to Home -->
+
+    <!-- Heading -->
+    <div class="heading">CHOOSE YOUR PREFERRED LANGUAGE</div>
+
+    <!-- Language Buttons -->
+    <a href="paste.html"><button class="button">ENGLISH</button></a>
+<a href="paste.html"><button class="button">TAMIL</button></a>
+<a href="paste.html"><button class="button">HINDI</button></a>
+
+
+    <!-- Floating Gradient Circles -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+
+    <script>
+        function goToNextPage(language) {
+            location.href = "verify.html?lang=" + language;
+        }
+    </script>
+
+</body>
+</html>

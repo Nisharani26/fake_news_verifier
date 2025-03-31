@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Verifier</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Header Section */
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .back {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Main Headings */
+        .heading {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            max-width: 80%;
+        }
+
+        .subheading {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Text Input Box */
+        .input-box {
+            width: 60%;
+            height: 100px;
+            background: #111;
+            color: white;
+            border: 2px solid gray;
+            border-radius: 10px;
+            font-size: 16px;
+            padding: 10px;
+            resize: none;
+            text-align: center;
+        }
+
+        /* Verify Button */
+        .button {
+            background: linear-gradient(to bottom, #222, #000);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            width: 200px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+            box-shadow: 0px 5px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .button:hover {
+            background: linear-gradient(to bottom, #444, #111);
+            transform: scale(1.05);
+        }
+
+        /* Floating Gradient Circles */
+        .circle {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(white, gray);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .circle1 { top: 10%; left: 80%; width: 30px; height: 30px; }
+        .circle2 { top: 50%; left: 95%; }
+        .circle3 { bottom: 5%; left: 10%; width: 80px; height: 80px; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">VERIFIER</div>
+    <a href="index.html" class="back">BACK</a>
+
+    <!-- Headings -->
+    <div class="heading">VERIFY THE NEWS - WHETHER IT IS REAL OR FAKE</div>
+    <div class="subheading">PASTE YOUR TEXT HERE</div>
+
+    <!-- Input Box -->
+    <textarea class="input-box" placeholder="Enter news text here..."></textarea>
+
+    <!-- Verify Button -->
+    <button class="button">VERIFY</button>
+
+    <!-- Floating Gradient Circles -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+
+</body>
+</html>
