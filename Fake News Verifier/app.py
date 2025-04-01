@@ -3,10 +3,34 @@ import pickle
 from preprocessing.preprocess_tamil import preprocess_user_input as preprocess_tamil
 from preprocessing.preprocess_hindi import preprocess_user_input as preprocess_hindi
 from preprocessing.preprocess_english import preprocess_user_input as preprocess_english
+from flask import Flask ,render_template,request
 import string
+
+
+app=Flask(__name__)
+
 # Define project directory
 project_dir = os.path.dirname(os.path.abspath(__file__))
 model_dir = os.path.join(project_dir, "models")  # Adjusted path to point to the correct models folder
+
+#Routing
+
+@app.route('/')
+def Home():
+        return render_template('index.html')
+
+@app.route('/choose')
+def choose():
+        return render_template('choose.html')
+
+@app.route('/paste')
+def paste():
+        return render_template('paste.html')
+
+@app.route('/result')
+def result():
+        return render_template('result.html')
+
 
 # Load models and vectorizers
 try:
@@ -83,3 +107,7 @@ print("\nTesting Tamil input:")
 tamil_input = "உலகின் மிகப்பெரிய எண்ணெய் கசிவானது!!!"
 result_tamil = verify_news(tamil_input, "tamil")
 print(f"Prediction result for Tamil: {result_tamil}")
+
+
+if(__name__=='__main__'):
+    app.run(debug=True)
