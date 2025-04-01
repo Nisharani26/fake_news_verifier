@@ -40,3 +40,17 @@ print("✅ Short/irrelevant data removed!")
 # Save cleaned dataset
 df.to_csv(output_path, index=False)
 print(f"✅ English data preprocessing complete! ✅ Processed file saved at: {output_path}")
+
+
+# user input
+import re
+import string
+
+def preprocess_english(text):
+    """Preprocess English news text"""
+    text = text.lower()
+    text = re.sub(r'\d+', '', text)  # Remove numbers
+    text = text.translate(str.maketrans('', '', string.punctuation))  # Remove punctuation
+    text = re.sub(r'\s+', ' ', text).strip()  # Remove extra spaces
+    return text
+
