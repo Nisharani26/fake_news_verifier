@@ -8,17 +8,20 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
 # Define file paths
-data_file = r"C:\Users\vigne\Documents\fake_news_verifier\Fake News Verifier\unused\English_kaggle\English_News.csv"
-cleaned_file_path = r"C:\Users\vigne\Documents\fake_news_verifier\Fake News Verifier\unused\English_kaggle\Cleaned_News_dataset.csv"
-model_dir = r"C:\Users\vigne\Documents\fake_news_verifier\Fake News Verifier\models"  # Assuming the folder already exists
-model_save_path = os.path.join(model_dir, "svm_fake_news_model.pkl")
-vectorizer_save_path = os.path.join(model_dir, "tfidf_vectorizer.pkl")
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Construct paths to the dataset, stopwords file, and output file
+data_path = os.path.join(project_dir, "dataset", "english", "Raw", "structured_data_english.csv")
+output_path = os.path.join(project_dir, "dataset", "english", "Processed", "processed_file_english.csv")
+
+# model_save_path = os.path.join(model_dir, "svm_fake_news_model.pkl")
+# vectorizer_save_path = os.path.join(model_dir, "tfidf_vectorizer.pkl")
 
 # Define correct column names
 expected_columns = ["title", "text", "label"]
 
 try:
-    df = pd.read_csv(data_file, skiprows=1, names=expected_columns, on_bad_lines="skip")
+    df = pd.read_csv(data_path, skiprows=1, names=expected_columns, on_bad_lines="skip")
     print("✅ Dataset loaded successfully!")
 except Exception as e:
     print(f"❌ Error loading dataset: {e}")
@@ -43,8 +46,8 @@ df = df[df["text"].str.len() > 20]
 print("✅ Short/irrelevant data removed!")
 
 # Save cleaned dataset
-df.to_csv(cleaned_file_path, index=False)
-print(f"✅ Cleaned dataset saved at: {cleaned_file_path}")
+df.to_csv(output_path, index=False)
+print(f"✅ Cleaned dataset saved at: {output_path}")
 
 # Split dataset into train and test sets
 X = df["text"]
@@ -70,11 +73,11 @@ print(f"\n✅ Model Accuracy: {accuracy:.2f}%")
 
 
 # Save model and vectorizer
-with open(model_save_path, "wb") as model_file:
-    pickle.dump(model, model_file)
-with open(vectorizer_save_path, "wb") as vectorizer_file:
-    pickle.dump(vectorizer, vectorizer_file)
+# with open(model_save_path, "wb") as model_file:
+#     pickle.dump(model, model_file)
+# with open(vectorizer_save_path, "wb") as vectorizer_file:
+#     pickle.dump(vectorizer, vectorizer_file)
 
 
-print(f"\n✅ Model saved at: {model_save_path}")
-print(f"✅ TF-IDF Vectorizer saved at: {vectorizer_save_path}")
+# print(f"\n✅ Model saved at: {model_save_path}")
+# print(f"✅ TF-IDF Vectorizer saved at: {vectorizer_save_path}")
