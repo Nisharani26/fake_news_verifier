@@ -42,15 +42,11 @@ df.to_csv(output_path, index=False)
 print(f"✅ English data preprocessing complete! ✅ Processed file saved at: {output_path}")
 
 
-# user input
-import re
-import string
-
-def preprocess_english(text):
+def preprocess_user_input(user_input):
     """Preprocess English news text"""
-    text = text.lower()
-    text = re.sub(r'\d+', '', text)  # Remove numbers
-    text = text.translate(str.maketrans('', '', string.punctuation))  # Remove punctuation
-    text = re.sub(r'\s+', ' ', text).strip()  # Remove extra spaces
-    return text
+    user_input = user_input.lower()
+    user_input = re.sub(r'\d+', '', user_input)  # Remove numbers
+    user_input = user_input.translate(str.maketrans('', '', string.punctuation))  # Remove punctuation
+    user_input = re.sub(r'\s+', ' ', user_input).strip()  # Remove extra spaces
+    return user_input
 
