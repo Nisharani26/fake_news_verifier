@@ -53,14 +53,6 @@ def verify_news(input_text, language):
         return f"Error in vectorizing {language} input: {e}"
 
     # Step 3: Make a prediction using the corresponding model
-<<<<<<< HEAD
-    prediction = models[language].predict(vectorized_input)
-    probability = models[language].predict_proba(vectorized_input)[0][1]  # Get probability for 'Fake' class
-
-    # Step 4: Return prediction result (Assuming 1 = Fake, 0 = Real) and the confidence score
-    result = "Fake News" if prediction[0] == 1 else "Real News"
-    return f"Prediction: {result}, Confidence (Probability): {probability * 100:.2f}%"
-=======
     try:
         prediction = models[language].predict(vectorized_input)
         print(f"Prediction for {language}: {prediction}")
@@ -69,7 +61,6 @@ def verify_news(input_text, language):
 
     # Step 4: Return prediction result (Assuming 1 = Fake, 0 = Real)
     return "Fake News" if prediction[0] == 1 else "Real News"
->>>>>>> 46575c350118c0dffb6f1ffa2291fe6eb8136677
 
 # Example user input from frontend
 user_input = "This is an example of fake news about global warming!"
