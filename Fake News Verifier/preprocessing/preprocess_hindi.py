@@ -48,3 +48,16 @@ df["standardized_text"] = df["stopwords_removed"].apply(lambda x: remove_punctua
 df.to_csv(output_path, index=False, encoding="UTF-8")
 
 print(f"hindi data preprocessing complete! ✅ Processed file saved at: {output_path}")
+
+# Function to preprocess user input from the frontend (in app.py)
+def preprocess_user_input(user_input):
+    # Tokenize the user input
+    tokenized_text = indic_tokenize.trivial_tokenize(user_input, lang='hi')
+
+    # Remove stopwords
+    stopwords_removed = remove_stopwords(tokenized_text)
+
+    # Remove punctuation and return the preprocessed text
+    standardized_text = remove_punctuation(' '.join(stopwords_removed))
+
+    return standardized_text
