@@ -41,12 +41,13 @@ print("✅ Short/irrelevant data removed!")
 df.to_csv(output_path, index=False)
 print(f"✅ English data preprocessing complete! ✅ Processed file saved at: {output_path}")
 
+import string  # Add this import at the top of your file
 
 def preprocess_user_input(user_input):
-    """Preprocess English news text"""
-    user_input = user_input.lower()
-    user_input = re.sub(r'\d+', '', user_input)  # Remove numbers
+    # Example preprocessing steps for English text
+    user_input = user_input.lower()  # Convert text to lowercase
     user_input = user_input.translate(str.maketrans('', '', string.punctuation))  # Remove punctuation
-    user_input = re.sub(r'\s+', ' ', user_input).strip()  # Remove extra spaces
+    user_input = ' '.join(user_input.split())  # Remove extra spaces
     return user_input
+
 

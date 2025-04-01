@@ -39,21 +39,30 @@ def verify_news(input_text, language):
         return "Language model or vectorizer not found!"
 
     # Step 1: Preprocess the user input in the selected language
+    print(f"Preprocessing input for {language}...")
     processed_input = preprocess_funcs[language](input_text)
-    print(f"Processed user input: {processed_input}")
+    print(f"Processed {language} input: {processed_input}")
 
     # Step 2: Vectorize the processed input text
-    vectorized_input = vectorizers[language].transform([processed_input])
+    try:
+        vectorized_input = vectorizers[language].transform([processed_input])
+        print(f"Vectorized {language} input: {vectorized_input.shape}")
+    except Exception as e:
+        return f"Error in vectorizing {language} input: {e}"
 
     # Step 3: Make a prediction using the corresponding model
-    prediction = models[language].predict(vectorized_input)
-    
+    try:
+        prediction = models[language].predict(vectorized_input)
+        print(f"Prediction for {language}: {prediction}")
+    except Exception as e:
+        return f"Error in prediction for {language}: {e}"
+
     # Step 4: Return prediction result (Assuming 1 = Fake, 0 = Real)
     return "Fake News" if prediction[0] == 1 else "Real News"
 
 # Example user input from frontend
-user_input = "உலகின் மிகப்பெரிய எண்ணெய் கசிவானது!!!"
-language = "tamil"  # This would be dynamically selected based on user input (e.g., from the frontend)
+user_input = "This is an example of fake news about global warming!"
+language = "english"  # This would be dynamically selected based on user input (e.g., from the frontend)
 
 # Call the verification function with the user input and selected language
 result = verify_news(user_input, language)
@@ -61,3 +70,14 @@ result = verify_news(user_input, language)
 # Output the result
 print(f"Original user input: {user_input}")
 print(f"Prediction result: {result}")
+
+# Repeat the process for Hindi and Tamil (for debugging purposes)
+print("\nTesting Hindi input:")
+hindi_input = "यह जलवायु परिवर्तन के बारे में झूठी खबर है।"
+result_hindi = verify_news(hindi_input, "hindi")
+print(f"Prediction result for Hindi: {result_hindi}")
+
+print("\nTesting Tamil input:")
+tamil_input = "உலகின் மிகப்பெரிய எண்ணெய் கசிவானது!!!"
+result_tamil = verify_news(tamil_input, "tamil")
+print(f"Prediction result for Tamil: {result_tamil}")
