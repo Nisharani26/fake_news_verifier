@@ -113,7 +113,7 @@
             localStorage.setItem("newsContent", newsText);
             localStorage.setItem("newsResult", "FAKE"); // Hardcoded result, change as per backend logic
             localStorage.setItem("accuracy", "87%"); // Example accuracy, update accordingly
-            window.location.href = "result.html";
+            window.location.href = "/result";
         }
     </script>
 </head>
@@ -121,17 +121,19 @@
 
     <!-- Header -->
     <div class="header">VERIFIER</div>
-    <a href="\choose" class="back">BACK</a>
+    <a href="/choose" class="back">BACK</a>
 
     <!-- Headings -->
     <div class="heading">VERIFY THE NEWS - WHETHER IT IS REAL OR FAKE</div>
     <div class="subheading">PASTE YOUR TEXT HERE</div>
-
-    <!-- Input Box -->
-    <textarea id="newsInput" class="input-box" placeholder="Enter news text here..." name="user_input"></textarea>
-
-    <!-- Verify Button -->
-    <button class="button" onclick="verifyNews()">VERIFY</button>
+    <form action="/verify" method="POST">
+        <!-- Input Box -->
+        <textarea id="newsInput" class="input-box" placeholder="Enter news text here..." name="user_input" required></textarea>
+    
+        <!-- Verify Button -->
+        <button class="button" type="submit">VERIFY</button>
+    </form>
+    
 
     <!-- Floating Gradient Circles -->
     <div class="circle circle1"></div>

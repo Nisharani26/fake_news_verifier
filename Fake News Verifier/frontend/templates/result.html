@@ -46,25 +46,47 @@
             margin-bottom: 20px;
         }
 
+        .news-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            width: 50%;
+            margin-bottom: 20px;
+            font-size: 18px;
+            word-wrap: break-word;
+        }
+
         .result {
             font-size: 22px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
         }
 
-        .accuracy {
-            font-size: 18px;
-            color: lightgray;
-            margin-bottom: 30px;
+        .fake {
+            background-color: red;
+            color: white;
         }
 
-        /* Buttons */
+        .real {
+            background-color: green;
+            color: white;
+        }
+
+        /* Buttons in Horizontal Alignment */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
         .button {
             background: linear-gradient(to bottom, #222, #000);
             border: none;
             color: white;
             padding: 15px 40px;
-            margin: 10px;
             font-size: 18px;
             font-weight: bold;
             border-radius: 30px;
@@ -80,50 +102,32 @@
             transform: scale(1.05);
         }
 
-        /* Floating Gradient Circles */
-        .circle {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(white, gray);
-            border-radius: 50%;
-            opacity: 0.7;
-        }
-
-        .circle1 { top: 10%; left: 80%; width: 30px; height: 30px; }
-        .circle2 { top: 50%; left: 95%; }
-        .circle3 { bottom: 5%; left: 10%; width: 80px; height: 80px; }
-
     </style>
-    <script>
-        window.onload = function() {
-            let newsText = localStorage.getItem("newsContent");
-            let result = localStorage.getItem("newsResult");
-            let accuracy = localStorage.getItem("accuracy");
-            document.getElementById("newsResult").innerText = result || "Unknown";
-            document.getElementById("newsAccuracy").innerText = accuracy ? "Accuracy: " + accuracy : "";
-        };
-    </script>
 </head>
 <body>
 
     <!-- Header -->
     <div class="header">VERIFIER</div>
-    <a href="\" class="back">BACK</a>
+    <a href="/" class="back">BACK</a>
 
     <!-- Headings -->
     <div class="heading">VERIFICATION RESULTS</div>
-    <div class="result" id="newsResult">FAKE/REAL</div>
-    <div class="accuracy" id="newsAccuracy">Accuracy: </div>
 
-    <!-- Buttons -->
-    <button class="button" onclick="window.location.href='paste.html'">VERIFY ANOTHER NEWS</button>
-    <button class="button" onclick="window.location.href='index.html'">GO TO HOME</button>
+    <!-- User Input Display -->
+    <div class="news-box">
+        <strong>Input News:</strong> "{{ user_input }}"
+    </div>
 
-    <!-- Floating Gradient Circles -->
-    <div class="circle circle1"></div>
-    <div class="circle circle2"></div>
-    <div class="circle circle3"></div>
+    <!-- Result Display -->
+    <div class="result {% if result == 'Fake News' %}fake{% else %}real{% endif %}">
+        {{ result }}
+    </div>
+
+    <!-- Buttons Container -->
+    <div class="button-container">
+        <button class="button" onclick="window.location.href='/paste'">VERIFY ANOTHER NEWS</button>
+        <button class="button" onclick="window.location.href='/'">GO TO HOME</button>
+    </div>
 
 </body>
 </html>

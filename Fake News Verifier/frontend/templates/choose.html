@@ -87,22 +87,22 @@
 
     <!-- Header -->
     <div class="header">VERIFIER</div>
-    <a href="\" class="back">BACK</a>  <!-- Back button now links to Home -->
+    <a href="/" class="back">BACK</a>  <!-- Back button now links to Home -->
 
     <!-- Heading -->
-    <div class="heading">CHOOSE YOUR PREFERRED LANGUAGE</div>
-
-    <!-- Language Buttons -->
-    <a href="\paste"><button class="button" value="english" name="english">ENGLISH</button></a>
-<a href="\paste"><button class="button" value="tamil" name="tamil">TAMIL</button></a>
-<a href="\paste"><button class="button" value="hindi" name="hindi">HINDI</button></a>
-
-
-    <!-- Floating Gradient Circles -->
-    <div class="circle circle1"></div>
-    <div class="circle circle2"></div>
-    <div class="circle circle3"></div>
-
+    <form action="/paste" method="POST">
+        <div class="heading">CHOOSE YOUR PREFERRED LANGUAGE</div>
+    
+        <!-- Language Buttons -->
+        <button class="button" type="submit" name="language" value="english">ENGLISH</button>
+        <button class="button" type="submit" name="language" value="tamil">TAMIL</button>
+        <button class="button" type="submit" name="language" value="hindi">HINDI</button>
+    
+    </form>
+        <!-- Floating Gradient Circles -->
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
     <script>
         function goToNextPage(language) {
             location.href = "verify.html?lang=" + language;
