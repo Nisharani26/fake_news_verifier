@@ -3,11 +3,11 @@ import pickle
 from preprocessing.preprocess_tamil import preprocess_user_input as preprocess_tamil
 from preprocessing.preprocess_hindi import preprocess_user_input as preprocess_hindi
 from preprocessing.preprocess_english import preprocess_user_input as preprocess_english
-from flask import Flask ,render_template,request,session
+from flask import Flask ,render_template,request,session,url_for
 import string
 
 
-app=Flask(__name__,template_folder="frontend/templates")
+app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
 # Initialize session secret key
 app.secret_key = "fnv"
 

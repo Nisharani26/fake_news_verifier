@@ -12,20 +12,20 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            position: relative;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Header Section */
         .header {
             position: absolute;
             top: 20px;
             left: 30px;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
         }
 
@@ -37,105 +37,121 @@
             font-weight: bold;
             text-decoration: none;
             color: white;
+            transition: color 0.3s ease-in-out;
         }
 
-        /* Main Headings */
+        .back:hover {
+            color: gray;
+        }
+
         .heading {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             max-width: 80%;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .subheading {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            animation: fadeIn 1.2s ease-in-out;
         }
 
-        /* Text Input Box */
         .input-box {
-            width: 60%;
-            height: 100px;
-            background: #111;
+            width: 100%;
+            max-width: 600px;
+            height: 80px;
+            background: #222;
             color: white;
             border: 2px solid gray;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
-            padding: 10px;
+            padding: 12px;
             resize: none;
-            text-align: center;
+            text-align: left;
+            transition: transform 0.3s ease-in-out;
         }
 
-        /* Verify Button */
+        .input-box:focus {
+            outline: none;
+            border-color: white;
+            transform: scale(1.02);
+        }
+
         .button {
-            background: linear-gradient(to bottom, #222, #000);
+            background: linear-gradient(to bottom, #444, #111);
             border: none;
             color: white;
-            padding: 15px 40px;
+            padding: 15px 45px;
             margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
             border-radius: 30px;
-            width: 200px;
+            width: 220px;
             cursor: pointer;
             text-transform: uppercase;
-            transition: 0.3s;
-            box-shadow: 0px 5px 10px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.2);
         }
 
         .button:hover {
-            background: linear-gradient(to bottom, #444, #111);
-            transform: scale(1.05);
+            background: linear-gradient(to bottom, #666, #222);
+            transform: scale(1.1);
         }
 
-        /* Floating Gradient Circles */
         .circle {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: radial-gradient(white, gray);
             border-radius: 50%;
-            opacity: 0.7;
+            opacity: 0.6;
+            animation: float 6s infinite alternate ease-in-out;
         }
 
-        .circle1 { top: 10%; left: 80%; width: 30px; height: 30px; }
+        .circle1 { top: 10%; left: 80%; width: 35px; height: 35px; }
         .circle2 { top: 50%; left: 95%; }
-        .circle3 { bottom: 5%; left: 10%; width: 80px; height: 80px; }
-    </style>
-    <script>
-        function verifyNews() {
-            let newsText = document.getElementById("newsInput").value.trim();
-            if (newsText === "") {
-                alert("Please enter some news to verify.");
-                return;
-            }
-            localStorage.setItem("newsContent", newsText);
-            localStorage.setItem("newsResult", "FAKE"); // Hardcoded result, change as per backend logic
-            localStorage.setItem("accuracy", "87%"); // Example accuracy, update accordingly
-            window.location.href = "/result";
+        .circle3 { bottom: 5%; left: 10%; width: 100px; height: 100px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-    </script>
+
+        @keyframes float {
+            from { transform: translateY(-10px); }
+            to { transform: translateY(10px); }
+        }
+
+        @media screen and (max-width: 768px) {
+            .heading { font-size: 20px; }
+            .subheading { font-size: 16px; }
+            .input-box { width: 90%; height: 100px; font-size: 14px; }
+            .button { width: 180px; padding: 12px 30px; font-size: 16px; }
+        }
+
+        textarea::placeholder{
+            font-size: 25px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Header -->
     <div class="header">VERIFIER</div>
     <a href="/choose" class="back">BACK</a>
 
-    <!-- Headings -->
     <div class="heading">VERIFY THE NEWS - WHETHER IT IS REAL OR FAKE</div>
-    <div class="subheading">PASTE YOUR TEXT HERE</div>
+    <br>
+    <div class="subheading">Paste Your Text Here </div>
+    <br>
     <form action="/verify" method="POST">
-        <!-- Input Box -->
         <textarea id="newsInput" class="input-box" placeholder="Enter news text here..." name="user_input" required></textarea>
-    
-        <!-- Verify Button -->
         <button class="button" type="submit">VERIFY</button>
     </form>
     
-
-    <!-- Floating Gradient Circles -->
     <div class="circle circle1"></div>
     <div class="circle circle2"></div>
     <div class="circle circle3"></div>
