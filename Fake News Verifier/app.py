@@ -33,19 +33,39 @@ def paste():
             return render_template('paste.html')
         return render_template('paste.html')
 
+# @app.route('/verify', methods=['POST'])  # Accept only POST requests
+# def verify():
+#     user_input = request.form.get('user_input')  # Get text input
+#     language = session.get('selected_language', 'english')  # Get stored language from session (default: English)
+
+#     if not user_input:
+#         return render_template('result.html', result="Error: No input provided", user_input="")
+
+#     # Call the fake news detection function
+#     prediction = verify_news(user_input, language)
+#     print(prediction)
+#     return render_template('result.html', result=prediction, user_input=user_input)
+
+
+# changes 
 @app.route('/verify', methods=['POST'])  # Accept only POST requests
 def verify():
     user_input = request.form.get('user_input')  # Get text input
     language = session.get('selected_language', 'english')  # Get stored language from session (default: English)
 
     if not user_input:
-        return render_template('result.html', result="Error: No input provided", user_input="")
+        return render_template('result.html', result="Error: No input provided", user_input="", cm="")
 
     # Call the fake news detection function
     prediction = verify_news(user_input, language)
     print(prediction)
-    return render_template('result.html', result=prediction, user_input=user_input)
 
+    # For now, you can just display the confusion matrix as a string or image
+    cm = confusion_matrix([0], [1])  # Placeholder confusion matrix for demonstration
+
+    return render_template('result.html', result=prediction, user_input=user_input, cm=cm)
+
+# changes
 
 # Load models and vectorizers
 try:
@@ -74,6 +94,66 @@ preprocess_funcs = {
 }
 
 # Function to verify input text and predict if it's real or fake
+# def verify_news(input_text, language):
+#     # Check if the language is valid
+#     if language not in models or language not in vectorizers:
+#         return "Error: Language model or vectorizer not found!"
+
+#     # Step 1: Preprocess the user input in the selected language
+#     print(f"Preprocessing input for {language}...")
+#     processed_input = preprocess_funcs[language](input_text)
+#     print(f"Processed {language} input: {processed_input}")
+
+#     # Step 2: Vectorize the processed input text
+#     try:
+#         vectorized_input = vectorizers[language].transform([processed_input])
+#         print(f"Vectorized {language} input: {vectorized_input.shape}")
+#     except Exception as e:
+#         return f"Error in vectorizing {language} input: {e}"
+
+#     # Step 3: Make a prediction using the corresponding model
+#     try:
+#         prediction = models[language].predict(vectorized_input)
+#         print(f"Prediction for {language}: {prediction}")
+#     except Exception as e:
+#         return f"Error in prediction for {language}: {e}"
+
+#     # Step 4: Return prediction result (Assuming 1 = Fake, 0 = Real)
+#     return "Fake News" if prediction[0] == 1 else "Real News"
+   
+# # Example user input from frontend
+# user_input = "This is an example of fake news about global warming!"
+# language = "english"  # This would be dynamically selected based on user input (e.g., from the frontend)
+
+# # Call the verification function with the user input and selected language
+# result = verify_news(user_input, language)
+
+# # Output the result
+# print(f"Original user input: {user_input}")
+# print(f"Prediction result: {result}")
+
+# # Repeat the process for Hindi and Tamil (for debugging purposes)
+# print("\nTesting Hindi input:")
+# hindi_input = "यह जलवायु परिवर्तन के बारे में झूठी खबर है।"
+# result_hindi = verify_news(hindi_input, "hindi")
+# print(f"Prediction result for Hindi: {result_hindi}")
+
+# print("\nTesting Tamil input:")
+# tamil_input = "உலகின் மிகப்பெரிய எண்ணெய் கசிவானது!!!"
+# result_tamil = verify_news(tamil_input, "tamil")
+# print(f"Prediction result for Tamil: {result_tamil}")
+
+
+
+from sklearn.metrics import confusion_matrix
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+# Function to verify input text and predict if it's real or fake
+from sklearn.metrics import confusion_matrix
+
 def verify_news(input_text, language):
     # Check if the language is valid
     if language not in models or language not in vectorizers:
@@ -98,30 +178,30 @@ def verify_news(input_text, language):
     except Exception as e:
         return f"Error in prediction for {language}: {e}"
 
-    # Step 4: Return prediction result (Assuming 1 = Fake, 0 = Real)
-    return "Fake News" if prediction[0] == 1 else "Real News"
-   
-# # Example user input from frontend
-# user_input = "This is an example of fake news about global warming!"
-# language = "english"  # This would be dynamically selected based on user input (e.g., from the frontend)
+    # Step 4: Determine result label
+    result = "Fake News" if prediction[0] == 1 else "Real News"
 
-# # Call the verification function with the user input and selected language
-# result = verify_news(user_input, language)
+    # Step 5: (For testing/demo) Define true label and compute confusion matrix
+    y_true = [0]  # Replace this with actual label if known
+    y_pred = prediction
+    cm = confusion_matrix(y_true, y_pred, labels=[1, 0])  # [Fake, Real]
 
-# # Output the result
-# print(f"Original user input: {user_input}")
-# print(f"Prediction result: {result}")
+    # Extract values
+    TP = cm[0][0]
+    FN = cm[0][1]
+    FP = cm[1][0]
+    TN = cm[1][1]
 
-# # Repeat the process for Hindi and Tamil (for debugging purposes)
-# print("\nTesting Hindi input:")
-# hindi_input = "यह जलवायु परिवर्तन के बारे में झूठी खबर है।"
-# result_hindi = verify_news(hindi_input, "hindi")
-# print(f"Prediction result for Hindi: {result_hindi}")
+    # Styled confusion matrix print (TP/FP style)
+    print("\nConfusion Matrix:")
+    print(" " * 20 + "Predicted")
+    print(" " * 14 + "| Fake | Real |")
+    print(" " * 14 + "-" * 23)
+    print("Actual  | Fake |  {:^4} |  {:^4} |".format(TP, FN))
+    print("        | Real |  {:^4} |  {:^4} |".format(FP, TN))
 
-# print("\nTesting Tamil input:")
-# tamil_input = "உலகின் மிகப்பெரிய எண்ணெய் கசிவானது!!!"
-# result_tamil = verify_news(tamil_input, "tamil")
-# print(f"Prediction result for Tamil: {result_tamil}")
+    return result
+
 
 
 if(__name__=='__main__'):
