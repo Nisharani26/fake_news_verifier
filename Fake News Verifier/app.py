@@ -33,18 +33,6 @@ def paste():
             return render_template('paste.html')
         return render_template('paste.html')
 
-# @app.route('/verify', methods=['POST'])  # Accept only POST requests
-# def verify():
-#     user_input = request.form.get('user_input')  # Get text input
-#     language = session.get('selected_language', 'english')  # Get stored language from session (default: English)
-
-#     if not user_input:
-#         return render_template('result.html', result="Error: No input provided", user_input="")
-
-#     # Call the fake news detection function
-#     prediction = verify_news(user_input, language)
-#     print(prediction)
-#     return render_template('result.html', result=prediction, user_input=user_input)
 
 
 # changes 
@@ -201,7 +189,6 @@ def verify_news(input_text, language):
     print("        | Real |  {:^4} |  {:^4} |".format(FP, TN))
 
     return result
-
 
 
 if(__name__=='__main__'):
