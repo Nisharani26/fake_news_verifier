@@ -44,10 +44,13 @@ def remove_punctuation(text):
 # Convert list of words back to string and remove punctuation
 df["standardized_text"] = df["stopwords_removed"].apply(lambda x: remove_punctuation(' '.join(x)))
 
+# ✅ Ensure the output folder exists
+os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
 # Save the processed DataFrame to a CSV file
 df.to_csv(output_path, index=False, encoding="UTF-8")
 
-print(f"hindi data preprocessing complete! ✅ Processed file saved at: {output_path}")
+print(f"Hindi data preprocessing complete! ✅ Processed file saved at: {output_path}")
 
 # Function to preprocess user input from the frontend (in app.py)
 def preprocess_user_input(user_input):
